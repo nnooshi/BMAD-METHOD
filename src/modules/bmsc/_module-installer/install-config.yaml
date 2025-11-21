@@ -1,0 +1,25 @@
+# BMAD™ Strategy Consulting Configuration
+
+code: bmsc
+name: "BMSC: BMad Strategy Consulting"
+default_selected: false # This module is specialized and not selected by default
+
+header: "BMad Strategy Consulting (BMSC) Module"
+subheader: "German SME AI Strategy Consulting with Activity-Based Costing and GDPR-First Approach"
+
+# Variables from Core Config inserted:
+## user_name
+## communication_language
+## output_folder
+## bmad_folder
+## install_user_docs
+## kb_install
+
+# BMSC-specific configuration
+module_config:
+  output_folder: ./bmsc-output
+  default_implementation_cost: 15000
+  default_efficiency_gain: 80
+  default_error_rate: 5
+  assume_sap_landscape: true
+  assume_works_council: true
