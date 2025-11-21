@@ -1,0 +1,42 @@
+# BMSC (BMad Strategy Consulting) Module Configuration
+# German SME AI Strategy Consulting
+#
+# This module provides pragmatic, GDPR-compliant AI strategy consulting
+# specifically designed for German Mittelstand (SME) companies
+
+# Output folder for generated strategic documents
+output_folder: ./bmsc-output
+
+# User information
+user_name: CEO
+
+# Language settings
+communication_language: german
+document_output_language: german
+
+# Skill level (affects depth of technical explanations)
+# Options: beginner, intermediate, advanced, expert
+user_skill_level: advanced
+
+# Company context (optional, can be set per workflow)
+company_name: ""
+industry_sector: ""
+
+# Default ROI calculation assumptions
+default_assumptions:
+  implementation_cost: 15000 # EUR
+  efficiency_gain_percent: 80 # Conservative estimate
+  error_rate_percent: 5 # Default if not specified
+
+# Compliance defaults
+compliance:
+  assume_sap_landscape: true
+  assume_works_council: true # Betriebsrat
+  default_privacy_stance: strict # strict, balanced, pragmatic
+
+# Architecture preferences
+architecture:
+  prefer_on_premise: true
+  consider_hybrid: true
+  allow_cloud_for_low_risk: true
+  default_cloud_region: "Germany West"

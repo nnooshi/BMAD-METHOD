@@ -1,0 +1,196 @@
+# German SME AI Strategy Consulting Workflow
+# 4-Phase Interactive Consulting Session
+# Module: BMSC (BMad Strategy Consulting)
+
+name: german-sme-consult
+description: "Interactive German SME AI strategy consulting workflow using Activity-Based Costing, Porter's Value Chain, and GDPR-first approach"
+author: "BMad"
+
+# Critical variables from config
+config_source: "{project-root}/{bmad_folder}/bmsc/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+user_skill_level: "{config_source}:user_skill_level"
+company_name: "{config_source}:company_name"
+date: system-generated
+
+# Default assumptions from config
+default_implementation_cost: "{config_source}:default_assumptions.implementation_cost"
+default_efficiency_gain: "{config_source}:default_assumptions.efficiency_gain_percent"
+default_error_rate: "{config_source}:default_assumptions.error_rate_percent"
+
+# Module path and component files
+installed_path: "{project-root}/{bmad_folder}/bmsc/workflows/german-sme-consult"
+instructions: "{installed_path}/instructions.md"
+template: "{installed_path}/template.md"
+validation: "{installed_path}/checklist.md"
+
+# Tools
+tools_path: "{project-root}/{bmad_folder}/bmsc/tools"
+financial_tools: "{tools_path}/financial_tools.js"
+report_generator: "{tools_path}/report_generator.js"
+
+# Output configuration
+default_output_file: "{output_folder}/STRATEGIC_ROADMAP-{{company_name}}-{{date}}.md"
+roi_calculation_file: "{output_folder}/ROI_CALCULATION-{{company_name}}-{{date}}.md"
+
+# Workflow phases
+phases:
+  - phase: 1
+    name: "Value Chain Interview (Discovery)"
+    description: "Identify manual bottleneck and map to Porter's Value Chain"
+    objectives:
+      - "Elicit EXACT process description (no vague answers)"
+      - "Categorize into Porter's Value Chain (Primary vs Support)"
+      - "Validate business criticality"
+    constraints:
+      - "Must map to one of 9 Value Chain categories"
+      - "Process must be clearly defined (not 'general admin')"
+      - "Must be currently manual (or partially manual)"
+    outputs:
+      - "Use case description"
+      - "Porter's Value Chain category"
+      - "Process criticality (Primary/Support)"
+
+  - phase: 2
+    name: "GDPR Filter (Feasibility)"
+    description: "Assess data protection risks and digital readiness"
+    objectives:
+      - "Determine if PII (personally identifiable information) is involved"
+      - "Check if data is digital or paper-based"
+      - "Assess Works Council (Betriebsrat) relevance"
+      - "Calculate GDPR risk score"
+    constraints:
+      - "IF paper-based → ABORT (cannot proceed)"
+      - "IF high-risk PII → Flag for on-premise only"
+      - "IF employee data → Betriebsrat must be involved"
+    outputs:
+      - "PII status (Yes/No)"
+      - "Data format (Digital/Paper)"
+      - "GDPR risk level (HIGH/MEDIUM/LOW)"
+      - "Betriebsrat involvement required (Yes/No)"
+
+  - phase: 3
+    name: "The Calculator (ROI)"
+    description: "Calculate financial impact using Activity-Based Costing"
+    objectives:
+      - "Collect: frequency per month, minutes per task, hourly rate"
+      - "Calculate: current costs, error costs, annual burden"
+      - "Project: savings at 80% efficiency gain"
+      - "Determine: break-even point, 3-year ROI"
+    constraints:
+      - "ALL three numbers required (frequency, minutes, rate)"
+      - "Hourly rate must be realistic (€30-€150 typical range)"
+      - "Efficiency gain capped at 80% (conservative)"
+      - "Break-even over 24 months requires executive approval"
+    outputs:
+      - "Current annual cost"
+      - "Projected annual savings"
+      - "Break-even months"
+      - "3-year ROI percentage"
+      - "Detailed ROI calculation document"
+
+  - phase: 4
+    name: "The Blueprint (Architecture)"
+    description: "Recommend technical architecture and generate strategic roadmap"
+    objectives:
+      - "Select architecture based on risk level"
+      - "Consider SAP integration requirements"
+      - "Include Betriebsrat coordination timeline"
+      - "Generate comprehensive strategic document"
+    constraints:
+      - "HIGH risk → On-Premise Local LLM mandatory"
+      - "MEDIUM risk → Azure OpenAI Germany West with AVV"
+      - "LOW risk → Cloud solutions with EU data centers"
+      - "Must include 3-phase implementation (PoC → Pilot → Rollout)"
+    outputs:
+      - "Architecture recommendation"
+      - "STRATEGIC_ROADMAP.md"
+      - "Implementation timeline"
+      - "Risk mitigation plan"
+
+# Validation rules
+validation_rules:
+  - rule: "Porter's Value Chain category must be valid"
+    check: "validateValueChainCategory()"
+    categories:
+      - "Inbound Logistics"
+      - "Operations"
+      - "Outbound Logistics"
+      - "Marketing & Sales"
+      - "Service"
+      - "Firm Infrastructure"
+      - "Human Resource Management"
+      - "Technology Development"
+      - "Procurement"
+
+  - rule: "ROI calculation requires all inputs"
+    check: "frequency_per_month AND minutes_per_task AND hourly_rate_euro"
+
+  - rule: "Paper-based data aborts workflow"
+    check: "IF data_format === 'Paper' THEN abort()"
+    abort_message: "Papierbasierte Prozesse können nicht automatisiert werden ohne vorherige Digitalisierung. Workflow aborted."
+
+  - rule: "Break-even over 24 months triggers warning"
+    check: "IF break_even_months > 24 THEN warn()"
+    warning_message: "Amortisationszeit über 2 Jahre. Executive approval empfohlen."
+
+# Architecture decision matrix
+architecture_matrix:
+  HIGH:
+    recommendation: "On-Premise / Local LLM"
+    models:
+      - "Llama 3.3 70B (self-hosted)"
+      - "Mistral Large 2 (self-hosted)"
+    rationale: "Personenbezogene Daten dürfen deutsches Rechenzentrum nicht verlassen"
+    estimated_cost: "€50,000-80,000 (hardware) + €2,000-3,000/month (operation)"
+
+  MEDIUM:
+    recommendation: "Azure OpenAI Germany West"
+    models:
+      - "GPT-4o (Azure)"
+      - "GPT-4o-mini (Azure)"
+    rationale: "DSGVO-konformer AVV verfügbar, Daten bleiben in Deutschland"
+    estimated_cost: "€10,000-15,000 (setup) + €1,000-2,000/month (usage)"
+
+  LOW:
+    recommendation: "Azure OpenAI Germany West (cost-optimized)"
+    models:
+      - "GPT-4o-mini (Azure)"
+      - "Alternative: AWS Bedrock EU"
+    rationale: "Keine sensiblen Daten, EU-Rechenzentren ausreichend"
+    estimated_cost: "€5,000-10,000 (setup) + €500-1,000/month (usage)"
+
+# Success criteria
+success_criteria:
+  - "All 4 phases completed with required outputs"
+  - "ROI shows positive 3-year return"
+  - "GDPR risk level determined and mitigated"
+  - "Architecture matches risk profile"
+  - "Strategic roadmap document generated"
+  - "Betriebsrat involvement addressed (if required)"
+
+standalone: true
+
+web_bundle:
+  name: "german-sme-consult"
+  description: "German SME AI Strategy Consulting - 4-Phase Methodology with Activity-Based Costing"
+  author: "BMad"
+  instructions: "{bmad_folder}/bmsc/workflows/german-sme-consult/instructions.md"
+  validation: "{bmad_folder}/bmsc/workflows/german-sme-consult/checklist.md"
+  template: "{bmad_folder}/bmsc/workflows/german-sme-consult/template.md"
+  web_bundle_files:
+    # Core workflow files
+    - "{bmad_folder}/bmsc/workflows/german-sme-consult/workflow.yaml"
+    - "{bmad_folder}/bmsc/workflows/german-sme-consult/instructions.md"
+    - "{bmad_folder}/bmsc/workflows/german-sme-consult/checklist.md"
+    - "{bmad_folder}/bmsc/workflows/german-sme-consult/template.md"
+    # Agent definition
+    - "{bmad_folder}/bmsc/agents/strategy-coach.agent.yaml"
+    # Tools (if applicable)
+    - "{bmad_folder}/bmsc/tools/financial_tools.js"
+    - "{bmad_folder}/bmsc/tools/report_generator.js"
+    # Configuration
+    - "{bmad_folder}/bmsc/config.yaml"
