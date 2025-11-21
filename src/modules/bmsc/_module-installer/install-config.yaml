@@ -7,19 +7,95 @@ default_selected: false # This module is specialized and not selected by default
 header: "BMad Strategy Consulting (BMSC) Module"
 subheader: "German SME AI Strategy Consulting with Activity-Based Costing and GDPR-First Approach"
 
-# Variables from Core Config inserted:
+# Welcome message during installation
+prompt:
+  - "╔════════════════════════════════════════════════════════════════╗"
+  - "║  BMSC: BMad Strategy Consulting                               ║"
+  - "║                                                                ║"
+  - "║  Pragmatic, GDPR-compliant AI strategy consulting for         ║"
+  - "║  German Mittelstand (SME) companies.                          ║"
+  - "║                                                                ║"
+  - "║  Features:                                                     ║"
+  - "║  • Activity-Based Costing ROI calculations                    ║"
+  - "║  • Porter's Value Chain analysis                              ║"
+  - "║  • GDPR/DSGVO compliance assessment                           ║"
+  - "║  • Strategic blueprint generation                             ║"
+  - "╚════════════════════════════════════════════════════════════════╝"
+  - ""
+  - "Let's configure your BMSC installation..."
+
+# Variables from Core Config automatically inherited:
 ## user_name
 ## communication_language
+## document_output_language
 ## output_folder
 ## bmad_folder
 ## install_user_docs
 ## kb_install
 
-# BMSC-specific configuration
-module_config:
-  output_folder: ./bmsc-output
-  default_implementation_cost: 15000
-  default_efficiency_gain: 80
-  default_error_rate: 5
-  assume_sap_landscape: true
-  assume_works_council: true
+# INTERACTIVE FIELDS (ask during installation)
+
+output_location:
+  prompt: "Where should strategic consulting documents be saved?"
+  default: "{output_folder}/bmsc-output"
+  result: "{project-root}/{value}"
+
+default_implementation_cost:
+  prompt: "Default implementation cost estimate (EUR) for ROI calculations:"
+  default: "15000"
+  result: "{value}"
+
+default_efficiency_gain:
+  prompt: "Default efficiency gain percentage for ROI projections (conservative estimate):"
+  default: "80"
+  result: "{value}"
+
+default_error_rate:
+  prompt: "Default error rate percentage (if not specified by user):"
+  default: "5"
+  result: "{value}"
+
+assume_sap_landscape:
+  prompt: "Assume SAP landscape for German SME clients?"
+  default: "yes"
+  result: "{value}"
+  single-select:
+    - value: "yes"
+      label: "Yes - Most German SMEs use SAP (affects integration complexity)"
+    - value: "no"
+      label: "No - Clients typically use other ERP systems"
+
+assume_works_council:
+  prompt: "Assume Betriebsrat (Works Council) exists for compliance assessments?"
+  default: "yes"
+  result: "{value}"
+  single-select:
+    - value: "yes"
+      label: "Yes - Most clients have Betriebsrat (adds compliance requirements)"
+    - value: "no"
+      label: "No - Smaller SMEs without Works Council"
+
+# STATIC FIELDS (no prompt, just hardcoded values)
+
+module_version:
+  result: "1.0.0"
+
+module_description:
+  result: "German SME AI strategy consulting with Activity-Based Costing and GDPR-first approach"
+
+tools_path:
+  result: "{project-root}/{bmad_folder}/bmsc/tools"
+
+# Default privacy stance for architecture recommendations
+default_privacy_stance:
+  result: "strict"  # Options: strict, balanced, pragmatic
+
+# Architecture preferences
+prefer_on_premise:
+  result: true
+
+allow_cloud_for_low_risk:
+  result: true
+
+default_cloud_region:
+  result: "Germany West"
