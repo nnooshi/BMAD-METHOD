@@ -1,0 +1,65 @@
+# German SME Master Consultant Workflow
+name: German SME Master Consultant
+description: A 4-stage consulting pipeline that filters raw AI ideas through proven frameworks to produce validated roadmaps
+author: "German SME Consultant Suite"
+
+# Configuration
+config_source: "{project-root}/{bmad_folder}/german-sme/config.yaml"
+output_location: "{config_source}:output_location"
+company_name: "{config_source}:default_company_name"
+currency: "{config_source}:default_currency"
+language_preference: "{config_source}:language_preference"
+
+# Agent paths - The 4 specialist agents
+agent_maturity: "{project-root}/{bmad_folder}/german-sme/agents/02-maturity-auditor.md"
+agent_compliance: "{project-root}/{bmad_folder}/german-sme/agents/03-compliance-officer.md"
+agent_canvas: "{project-root}/{bmad_folder}/german-sme/agents/01-canvas-strategist.md"
+agent_crisp: "{project-root}/{bmad_folder}/german-sme/agents/04-crisp-pm.md"
+
+# Workflow resources
+installed_path: "{project-root}/{bmad_folder}/german-sme/workflows/master-sme-consult"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Tools path
+tools_path: "{project-root}/{bmad_folder}/german-sme/tools/frameworks"
+
+# Output files (created during the workflow)
+output_maturity_report: "{output_location}/01-maturity-assessment.md"
+output_compliance_report: "{output_location}/02-compliance-assessment.md"
+output_ai_canvas: "{output_location}/03-ai-canvas.md"
+output_roadmap: "{output_location}/04-CRISP-DM-ROADMAP.md"
+
+standalone: true
+
+# Web bundle configuration
+web_bundle: false
+
+# WORKFLOW OVERVIEW
+# This workflow guides users through a 4-stage consulting process:
+#
+# STAGE 1: Data Maturity Assessment (THE MATURITY GATE)
+#   Agent: Data Maturity Auditor
+#   Framework: AI Hierarchy of Needs
+#   Output: 01-maturity-assessment.md
+#   Decision: NO-GO / PROCEED WITH CAUTION / GO
+#
+# STAGE 2: German Compliance Assessment (THE COMPLIANCE GATE)
+#   Agent: DACH Compliance Officer
+#   Framework: 4-P Model (Privacy, Platform, People, Proprietary)
+#   Output: 02-compliance-assessment.md
+#   Decision: HIGH RISK / MEDIUM RISK / LOW RISK
+#
+# STAGE 3: AI Canvas Strategy Workshop (THE STRATEGY DEFINITION)
+#   Agent: AI Canvas Strategist
+#   Framework: Prediction Machines / AI Canvas
+#   Output: 03-ai-canvas.md
+#   Result: Clear business case with prediction goal and ROI
+#
+# STAGE 4: CRISP-DM Roadmap Generation (THE EXECUTION PLAN)
+#   Agent: CRISP-DM Project Manager
+#   Framework: CRISP-DM (6 phases)
+#   Output: 04-CRISP-DM-ROADMAP.md
+#   Result: Complete project roadmap with timeline and budget
+#
+# See instructions.md for detailed workflow execution guidance.

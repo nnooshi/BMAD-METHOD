@@ -1,0 +1,186 @@
+# German SME Consultant Module Configuration
+
+code: german-sme
+name: "German SME Consultant Suite (Mittelstand-AI)"
+default_selected: false
+
+header: "German SME AI Consultant Module Configuration"
+subheader: |
+  The "Consultant in a Pocket" for German manufacturing/SME sector.
+  Implements 4 proven frameworks: AI Canvas, Hierarchy of Needs, 4-P Model, and CRISP-DM.
+
+# Welcome message during installation
+prompt:
+  - "╔════════════════════════════════════════════════════════════════╗"
+  - "║  German SME Consultant Suite (Mittelstand-AI)                 ║"
+  - "║                                                                ║"
+  - "║  Transform raw AI ideas into validated, German-context-aware  ║"
+  - "║  roadmaps using 4 proven frameworks:                          ║"
+  - "║                                                                ║"
+  - "║  1. AI Canvas - Business Strategy                             ║"
+  - "║  2. Hierarchy of Needs - Data Maturity                        ║"
+  - "║  3. 4-P Model - German Compliance & Culture                   ║"
+  - "║  4. CRISP-DM - Project Execution                              ║"
+  - "║                                                                ║"
+  - "║  Perfect for: German Mittelstand manufacturers, SMEs with     ║"
+  - "║  legacy IT, organizations with Betriebsrat, DSGVO compliance  ║"
+  - "╚════════════════════════════════════════════════════════════════╝"
+  - ""
+  - "Let's configure your German SME Consultant installation..."
+
+# Variables from Core Config automatically inherited:
+## user_name
+## communication_language
+## document_output_language
+## output_folder
+## bmad_folder
+## install_user_docs
+## kb_install
+
+# INTERACTIVE FIELDS (ask during installation)
+
+output_location:
+  prompt: "Where should consulting reports and roadmaps be saved?"
+  default: "{output_folder}/german-sme-reports"
+  result: "{project-root}/{value}"
+
+default_company_name:
+  prompt: "Default company name for reports (can be overridden per project):"
+  default: "German SME"
+  result: "{value}"
+
+default_currency:
+  prompt: "Default currency for ROI calculations:"
+  default: "EUR"
+  result: "{value}"
+  single-select:
+    - value: "EUR"
+      label: "Euro (€) - Recommended for German/DACH region"
+    - value: "CHF"
+      label: "Swiss Franc (CHF) - For Switzerland"
+    - value: "USD"
+      label: "US Dollar ($)"
+
+language_preference:
+  prompt: "Report language preference:"
+  default: "bilingual"
+  result: "{value}"
+  single-select:
+    - value: "german"
+      label: "German - Reports in German (Deutsch)"
+    - value: "english"
+      label: "English - Reports in English"
+    - value: "bilingual"
+      label: "Bilingual - Key terms in German, explanations in English (Recommended)"
+
+betriebsrat_default:
+  prompt: "Does your organization typically work with companies that have a Betriebsrat (Works Council)?"
+  default: "yes"
+  result: "{value}"
+  single-select:
+    - value: "yes"
+      label: "Yes - Most clients have Betriebsrat (adds compliance checks)"
+    - value: "no"
+      label: "No - Most clients are smaller SMEs without Betriebsrat"
+    - value: "mixed"
+      label: "Mixed - Varies by client"
+
+industry_focus:
+  prompt: "Primary industry focus (for context-specific advice):"
+  default: "manufacturing"
+  result: "{value}"
+  single-select:
+    - value: "manufacturing"
+      label: "Manufacturing - Machining, production, Industrie 4.0"
+    - value: "automotive"
+      label: "Automotive - Suppliers, OEMs"
+    - value: "logistics"
+      label: "Logistics - Supply chain, warehousing"
+    - value: "retail"
+      label: "Retail - E-commerce, brick-and-mortar"
+    - value: "finance"
+      label: "Finance - Banking, insurance (extra DSGVO scrutiny)"
+    - value: "healthcare"
+      label: "Healthcare - Medical devices, pharma (strict regulations)"
+    - value: "general"
+      label: "General - Multi-industry consulting"
+
+# STATIC FIELDS (no prompt, just hardcoded values)
+
+module_version:
+  result: "1.0.0"
+
+module_description:
+  result: "Multi-agent consulting system for German SME AI projects using AI Canvas, Hierarchy of Needs, 4-P Model, and CRISP-DM frameworks"
+
+tools_path:
+  result: "{project-root}/{bmad_folder}/german-sme/tools/frameworks"
+
+docs_path:
+  result: "{project-root}/{bmad_folder}/german-sme/docs"
+
+data_path:
+  result: "{project-root}/{bmad_folder}/german-sme/data"
+
+templates_path:
+  result: "{project-root}/{bmad_folder}/german-sme/templates"
+
+# Agent paths (for reference)
+agent_canvas_strategist:
+  result: "{project-root}/{bmad_folder}/german-sme/agents/01-canvas-strategist.md"
+
+agent_maturity_auditor:
+  result: "{project-root}/{bmad_folder}/german-sme/agents/02-maturity-auditor.md"
+
+agent_compliance_officer:
+  result: "{project-root}/{bmad_folder}/german-sme/agents/03-compliance-officer.md"
+
+agent_crisp_pm:
+  result: "{project-root}/{bmad_folder}/german-sme/agents/04-crisp-pm.md"
+
+# Workflow path
+workflow_master_consult:
+  result: "{project-root}/{bmad_folder}/german-sme/workflows/master-sme-consult/workflow.yaml"
+
+# Default settings for framework tools
+default_maturity_threshold:
+  result: 4  # Level 4 = Ready for ML
+
+default_compliance_threshold:
+  result: 70  # 70/100 = Acceptable risk
+
+default_timeline_multiplier:
+  result: 1.5  # German projects take 1.5x base timeline (conservative estimate)
+
+# DSGVO/GDPR settings
+dsgvo_strict_mode:
+  prompt: "Enable strict DSGVO compliance mode (recommended for Germany)?"
+  default: "yes"
+  result: "{value}"
+  single-select:
+    - value: "yes"
+      label: "Yes - Apply strictest German DSGVO interpretations"
+    - value: "no"
+      label: "No - Use standard EU GDPR guidelines"
+
+# Documentation installation
+install_framework_docs:
+  prompt: "Install framework documentation and guides?"
+  default: "yes"
+  result: "{value}"
+  single-select:
+    - value: "yes"
+      label: "Yes - Install all guides (AI Canvas, Hierarchy, 4-P, CRISP-DM)"
+    - value: "no"
+      label: "No - Skip documentation (faster install)"
+
+# Example data
+include_examples:
+  prompt: "Include example assessments and roadmaps?"
+  default: "yes"
+  result: "{value}"
+  single-select:
+    - value: "yes"
+      label: "Yes - Install example projects (predictive maintenance, demand forecasting)"
+    - value: "no"
+      label: "No - Clean installation without examples"
