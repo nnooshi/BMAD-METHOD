@@ -1,0 +1,103 @@
+# Trade Construction Workflow - Multi-Agent Orchestration
+name: trade-construction
+description: "Comprehensive multi-agent workflow for trade construction: from idea validation through mechanism design, structure optimization, risk validation, to final order generation. Orchestrates Portfolio Manager, Market Analyst, Strategy Architect, and Risk Guardian agents."
+author: "Systematic Alpha"
+
+# Critical variables from config
+config_source: "{project-root}/{bmad_folder}/systematic-alpha/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+date: system-generated
+current_year: system-generated
+current_month: system-generated
+
+# Data sources
+portfolio_data: "{config_source}:portfolio_data_source"
+market_data_provider: "{config_source}:market_data_provider"
+risk_parameters: "{config_source}:risk_parameters_file"
+
+# Multi-agent orchestration configuration
+agent_manifest: "{project-root}/{bmad_folder}/_cfg/agent-manifest.csv"
+enable_multi_agent_mode: true
+
+# Sequential agent involvement
+agent_sequence:
+  step_1: "Portfolio Manager"  # Check portfolio needs and constraints
+  step_2: "Market Analyst"     # Validate market conditions and timing
+  step_3: "Strategy Architect" # Design trade structure and mechanics
+  step_4: "Risk Guardian"      # Validate risk parameters and approve
+  step_5: "Portfolio Manager"  # Generate final order specification
+
+# Risk gates and validation
+require_risk_approval: true
+max_position_size: "{config_source}:max_position_size"
+max_portfolio_delta: "{config_source}:max_portfolio_delta"
+correlation_threshold: "{config_source}:max_correlation"
+min_risk_reward_ratio: 2.0
+
+# Trade construction parameters
+enable_web_research: true
+require_backtesting: false  # Optional backtesting before execution
+structure_types: ["Vertical Spread", "Iron Condor", "Butterfly", "Calendar Spread", "Diagonal", "Ratio Spread", "Straddle", "Strangle"]
+
+# Workflow components
+installed_path: "{project-root}/{bmad_folder}/systematic-alpha/workflows/03-trade-construction"
+instructions: "{installed_path}/instructions.md"
+template: "{installed_path}/template.md"
+validation: "{installed_path}/checklist.md"
+
+# Supporting templates and tools
+draft_plan_template: "{project-root}/{bmad_folder}/systematic-alpha/templates/trade_plans/draft_plan.md"
+final_order_template: "{project-root}/{bmad_folder}/systematic-alpha/templates/trade_plans/final_trade_order.json"
+options_pricing_tool: "{project-root}/{bmad_folder}/systematic-alpha/tools/math/options_pricing.py"
+structure_optimizer: "{project-root}/{bmad_folder}/systematic-alpha/tools/math/structure_optimizer.py"
+risk_calculator: "{project-root}/{bmad_folder}/systematic-alpha/tools/math/risk_calculator.py"
+
+# Smart input file references - context for trade construction
+# Priority: Most recent files first
+input_file_patterns:
+  portfolio_health:
+    description: "Current portfolio health report (REQUIRED)"
+    whole: "{output_folder}/portfolio-health*.md"
+    load_strategy: "SELECTIVE_LOAD"
+  market_scan:
+    description: "Recent market scan and watchlist (RECOMMENDED)"
+    whole: "{output_folder}/market-scan*.md"
+    load_strategy: "SELECTIVE_LOAD"
+  previous_trades:
+    description: "Historical trade plans for learning (OPTIONAL)"
+    whole: "{output_folder}/trade-plan*.md"
+    load_strategy: "SELECTIVE_LOAD"
+  risk_parameters:
+    description: "User risk tolerance and constraints (REQUIRED)"
+    whole: "{risk_parameters}"
+    load_strategy: "FULL_LOAD"
+
+# Output configuration - Progressive saves at each stage
+draft_output_file: "{output_folder}/trade-draft-{{date}}.md"
+default_output_file: "{output_folder}/trade-plan-{{date}}.md"
+final_order_file: "{output_folder}/trade-order-{{date}}.json"
+risk_report_file: "{output_folder}/trade-risk-analysis-{{date}}.md"
+
+# Living document - saves at each major step
+checkpoint_saves: true
+save_after_steps: [1, 2, 3, 4, 5]
+
+standalone: true
+
+web_bundle:
+  name: "trade-construction"
+  description: "Multi-agent workflow for comprehensive trade construction from idea to executable order"
+  author: "Systematic Alpha"
+  instructions: "{bmad_folder}/systematic-alpha/workflows/03-trade-construction/instructions.md"
+  template: "{bmad_folder}/systematic-alpha/templates/trade_plans/draft_plan.md"
+  agent_manifest: "{bmad_folder}/_cfg/agent-manifest.csv"
+  web_bundle_files:
+    - "{bmad_folder}/systematic-alpha/workflows/03-trade-construction/instructions.md"
+    - "{bmad_folder}/systematic-alpha/workflows/03-trade-construction/template.md"
+    - "{bmad_folder}/systematic-alpha/workflows/03-trade-construction/checklist.md"
+    - "{bmad_folder}/systematic-alpha/templates/trade_plans/draft_plan.md"
+    - "{bmad_folder}/systematic-alpha/templates/trade_plans/final_trade_order.json"
+    - "{bmad_folder}/_cfg/agent-manifest.csv"

@@ -1,0 +1,58 @@
+# Portfolio Health Check Workflow
+name: portfolio-health-check
+description: "Analyzes current portfolio holdings, calculates beta-weighted deltas, and generates a comprehensive health report with actionable recommendations for portfolio management"
+author: "Systematic Alpha"
+
+# Critical variables from config
+config_source: "{project-root}/{bmad_folder}/systematic-alpha/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+date: system-generated
+current_year: system-generated
+current_month: system-generated
+
+# Portfolio data sources
+portfolio_data: "{config_source}:portfolio_data_source"
+holdings_file: "{portfolio_data}/current-holdings.json"
+historical_data: "{portfolio_data}/historical/"
+
+# Risk parameters
+enable_beta_weighting: true
+require_correlation_analysis: true
+risk_tolerance: "{config_source}:risk_tolerance"
+target_delta_range: "{config_source}:target_delta_range"
+
+# Agent involvement
+primary_agent: "Portfolio Manager"
+agent_role: "Analyze portfolio positions, calculate risk metrics, identify rebalancing needs"
+
+# Workflow components
+installed_path: "{project-root}/{bmad_folder}/systematic-alpha/workflows/01-portfolio-health-check"
+instructions: "{installed_path}/instructions.md"
+template: "{installed_path}/template.md"
+validation: "{installed_path}/checklist.md"
+
+# Supporting data files
+portfolio_health_template: "{project-root}/{bmad_folder}/systematic-alpha/templates/reports/portfolio_health.md"
+beta_calculation_tool: "{project-root}/{bmad_folder}/systematic-alpha/tools/math/beta_weighting.py"
+correlation_tool: "{project-root}/{bmad_folder}/systematic-alpha/tools/math/correlation_matrix.py"
+
+# Output configuration
+default_output_file: "{output_folder}/portfolio-health-{{date}}.md"
+export_json: "{output_folder}/portfolio-health-{{date}}.json"
+
+standalone: true
+
+web_bundle:
+  name: "portfolio-health-check"
+  description: "Analyzes current portfolio holdings, calculates beta-weighted deltas, and generates a comprehensive health report"
+  author: "Systematic Alpha"
+  instructions: "{bmad_folder}/systematic-alpha/workflows/01-portfolio-health-check/instructions.md"
+  template: "{bmad_folder}/systematic-alpha/templates/reports/portfolio_health.md"
+  web_bundle_files:
+    - "{bmad_folder}/systematic-alpha/workflows/01-portfolio-health-check/instructions.md"
+    - "{bmad_folder}/systematic-alpha/workflows/01-portfolio-health-check/template.md"
+    - "{bmad_folder}/systematic-alpha/workflows/01-portfolio-health-check/checklist.md"
+    - "{bmad_folder}/systematic-alpha/templates/reports/portfolio_health.md"

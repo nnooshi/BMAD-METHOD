@@ -1,0 +1,9 @@
+code: systematic-alpha
+name: 'Systematic Alpha Suite'
+prompt:
+  - 'Installing the Outlier Trading System...'
+  - 'Setting up Risk Guardian protocols...'
+output_location:
+  prompt: 'Where should Trade Plans be saved?'
+  default: 'output/trade_plans'
+  result: '{project-root}/{value}'

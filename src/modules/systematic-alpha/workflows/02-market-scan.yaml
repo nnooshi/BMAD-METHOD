@@ -1,0 +1,71 @@
+# Market Scan Workflow
+name: market-scan
+description: "Performs comprehensive market analysis by fetching economic data, analyzing sector performance, evaluating IV rank percentiles, and generating a prioritized watchlist for potential trading opportunities"
+author: "Systematic Alpha"
+
+# Critical variables from config
+config_source: "{project-root}/{bmad_folder}/systematic-alpha/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+date: system-generated
+current_year: system-generated
+current_month: system-generated
+
+# Market data sources
+market_data_provider: "{config_source}:market_data_provider"
+economic_calendar: "{config_source}:economic_calendar_source"
+sector_etfs: "{config_source}:sector_etf_list"
+
+# Analysis parameters
+enable_web_research: true
+iv_rank_threshold: 50  # Minimum IV rank percentile for consideration
+minimum_liquidity: "{config_source}:minimum_liquidity"
+sectors_to_scan: ["Technology", "Healthcare", "Financials", "Energy", "Consumer", "Industrials", "Materials", "Utilities", "Real Estate"]
+
+# Agent involvement
+primary_agent: "Market Analyst"
+agent_role: "Analyze market conditions, identify high-probability opportunities, create watchlist"
+
+# Workflow components
+installed_path: "{project-root}/{bmad_folder}/systematic-alpha/workflows/02-market-scan"
+instructions: "{installed_path}/instructions.md"
+template: "{installed_path}/template.md"
+validation: "{installed_path}/checklist.md"
+
+# Supporting data files and tools
+market_disposition_template: "{project-root}/{bmad_folder}/systematic-alpha/templates/reports/market_disposition.md"
+sector_analysis_tool: "{project-root}/{bmad_folder}/systematic-alpha/tools/market/sector_screener.py"
+iv_rank_tool: "{project-root}/{bmad_folder}/systematic-alpha/tools/market/iv_rank_calculator.py"
+economic_data_tool: "{project-root}/{bmad_folder}/systematic-alpha/tools/market/economic_data.py"
+
+# Input file patterns (optional - for context)
+input_file_patterns:
+  portfolio_health:
+    description: "Recent portfolio health report for context (optional)"
+    whole: "{output_folder}/portfolio-health*.md"
+    load_strategy: "SELECTIVE_LOAD"
+  previous_scans:
+    description: "Previous market scans for trend analysis (optional)"
+    whole: "{output_folder}/market-scan*.md"
+    load_strategy: "SELECTIVE_LOAD"
+
+# Output configuration
+default_output_file: "{output_folder}/market-scan-{{date}}.md"
+watchlist_file: "{output_folder}/watchlist-{{date}}.json"
+export_csv: "{output_folder}/watchlist-{{date}}.csv"
+
+standalone: true
+
+web_bundle:
+  name: "market-scan"
+  description: "Performs comprehensive market analysis and generates a prioritized watchlist for trading opportunities"
+  author: "Systematic Alpha"
+  instructions: "{bmad_folder}/systematic-alpha/workflows/02-market-scan/instructions.md"
+  template: "{bmad_folder}/systematic-alpha/templates/reports/market_disposition.md"
+  web_bundle_files:
+    - "{bmad_folder}/systematic-alpha/workflows/02-market-scan/instructions.md"
+    - "{bmad_folder}/systematic-alpha/workflows/02-market-scan/template.md"
+    - "{bmad_folder}/systematic-alpha/workflows/02-market-scan/checklist.md"
+    - "{bmad_folder}/systematic-alpha/templates/reports/market_disposition.md"

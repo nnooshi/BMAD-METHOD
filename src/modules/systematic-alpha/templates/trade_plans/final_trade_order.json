@@ -1,0 +1,210 @@
+{
+  "metadata": {
+    "timestamp": "{{timestamp_iso8601}}",
+    "plan_id": "{{plan_id}}",
+    "order_id": "{{order_id}}",
+    "version": "{{version}}"
+  },
+  "trade_identification": {
+    "ticker": "{{ticker}}",
+    "direction": "{{direction}}",
+    "thesis_summary": "{{thesis_summary}}",
+    "target_price": "{{target_price}}",
+    "target_timeline_days": "{{target_timeline_days}}"
+  },
+  "profit_mechanism": {
+    "type": "{{profit_type}}",
+    "primary_source": "{{primary_source}}",
+    "secondary_sources": [
+      "{{secondary_source_1}}",
+      "{{secondary_source_2}}"
+    ],
+    "expected_return_scenarios": {
+      "best_case": {
+        "condition": "{{best_case_condition}}",
+        "profit": "{{best_case_profit}}",
+        "probability": "{{best_case_probability}}"
+      },
+      "base_case": {
+        "condition": "{{base_case_condition}}",
+        "profit": "{{base_case_profit}}",
+        "probability": "{{base_case_probability}}"
+      },
+      "worst_case": {
+        "condition": "{{worst_case_condition}}",
+        "loss": "{{worst_case_loss}}",
+        "probability": "{{worst_case_probability}}"
+      }
+    }
+  },
+  "structure": {
+    "type": "{{structure_type}}",
+    "legs": [
+      {
+        "leg_id": "{{leg_1_id}}",
+        "instrument_type": "{{leg_1_instrument}}",
+        "ticker": "{{leg_1_ticker}}",
+        "action": "{{leg_1_action}}",
+        "quantity": "{{leg_1_quantity}}",
+        "strike": "{{leg_1_strike}}",
+        "expiration": "{{leg_1_expiration}}",
+        "premium_or_price": "{{leg_1_premium}}",
+        "leg_cost_or_credit": "{{leg_1_total}}"
+      },
+      {
+        "leg_id": "{{leg_2_id}}",
+        "instrument_type": "{{leg_2_instrument}}",
+        "ticker": "{{leg_2_ticker}}",
+        "action": "{{leg_2_action}}",
+        "quantity": "{{leg_2_quantity}}",
+        "strike": "{{leg_2_strike}}",
+        "expiration": "{{leg_2_expiration}}",
+        "premium_or_price": "{{leg_2_premium}}",
+        "leg_cost_or_credit": "{{leg_2_total}}"
+      }
+    ],
+    "net_debit_or_credit": "{{net_debit_credit}}",
+    "breakeven_prices": [
+      "{{breakeven_1}}",
+      "{{breakeven_2}}"
+    ],
+    "profit_range": {
+      "min_profit": "{{min_profit}}",
+      "max_profit": "{{max_profit}}",
+      "min_loss": "{{min_loss}}",
+      "max_loss": "{{max_loss}}"
+    }
+  },
+  "risk_metrics": {
+    "max_loss": "{{max_loss}}",
+    "max_loss_pct": "{{max_loss_pct}}",
+    "risk_reward_ratio": "{{risk_reward_ratio}}",
+    "probability_of_profit": "{{pop}}",
+    "liquidity_rating": "{{liquidity_rating}}",
+    "liquidity_notes": "{{liquidity_notes}}",
+    "earnings_risk": {
+      "contains_earnings": "{{contains_earnings}}",
+      "earnings_date": "{{earnings_date}}",
+      "expected_iv_crush": "{{expected_iv_crush}}",
+      "earnings_play": "{{earnings_play}}"
+    },
+    "greek_exposure": {
+      "delta": "{{greek_delta}}",
+      "gamma": "{{greek_gamma}}",
+      "theta": "{{greek_theta}}",
+      "vega": "{{greek_vega}}",
+      "rho": "{{greek_rho}}"
+    },
+    "correlation_to_portfolio": "{{portfolio_correlation}}"
+  },
+  "sizing": {
+    "account_size": "{{account_size}}",
+    "risk_allocation_pct": "{{risk_allocation_pct}}",
+    "bucket": "{{sizing_bucket}}",
+    "capital_allocated": "{{capital_allocated}}",
+    "position_units": "{{position_units}}",
+    "entry_strategy": {
+      "type": "{{entry_strategy_type}}",
+      "tranches": [
+        {
+          "tranche_number": 1,
+          "percentage": "{{tranche_1_pct}}",
+          "units": "{{tranche_1_units}}",
+          "trigger": "{{tranche_1_trigger}}"
+        },
+        {
+          "tranche_number": 2,
+          "percentage": "{{tranche_2_pct}}",
+          "units": "{{tranche_2_units}}",
+          "trigger": "{{tranche_2_trigger}}"
+        }
+      ]
+    }
+  },
+  "exit_plan": {
+    "profit_targets": [
+      {
+        "target_id": "pt_25",
+        "percentage_profit": 25,
+        "exit_price": "{{pt_25_price}}",
+        "units_to_exit": "{{pt_25_units}}"
+      },
+      {
+        "target_id": "pt_50",
+        "percentage_profit": 50,
+        "exit_price": "{{pt_50_price}}",
+        "units_to_exit": "{{pt_50_units}}"
+      },
+      {
+        "target_id": "pt_100",
+        "percentage_profit": 100,
+        "exit_price": "{{pt_100_price}}",
+        "units_to_exit": "{{pt_100_units}}"
+      }
+    ],
+    "stop_losses": {
+      "hard_stop": {
+        "trigger_level": "{{hard_stop_level}}",
+        "action": "close_entire_position"
+      },
+      "soft_stop": {
+        "trigger_level": "{{soft_stop_level}}",
+        "action": "{{soft_stop_action}}"
+      },
+      "panic_stop": {
+        "trigger_level": "{{panic_stop_level}}",
+        "action": "forced_exit"
+      }
+    },
+    "time_based_exits": {
+      "days_in_trade": "{{max_days_in_trade}}",
+      "rebalance_frequency": "{{rebalance_frequency}}",
+      "roll_plan": "{{roll_plan}}"
+    }
+  },
+  "execution": {
+    "order_type": "{{order_type}}",
+    "time_in_force": "{{time_in_force}}",
+    "price_limits": {
+      "max_entry_price": "{{max_entry_price}}",
+      "preferred_entry": "{{preferred_entry_price}}"
+    },
+    "execution_notes": "{{execution_notes}}"
+  },
+  "monitoring": {
+    "review_frequency": "{{review_frequency}}",
+    "key_metrics_to_track": [
+      "{{metric_1}}",
+      "{{metric_2}}",
+      "{{metric_3}}"
+    ],
+    "rebalance_triggers": [
+      {
+        "metric": "{{rebal_metric_1}}",
+        "threshold": "{{rebal_threshold_1}}",
+        "action": "{{rebal_action_1}}"
+      },
+      {
+        "metric": "{{rebal_metric_2}}",
+        "threshold": "{{rebal_threshold_2}}",
+        "action": "{{rebal_action_2}}"
+      }
+    ],
+    "alert_conditions": [
+      "{{alert_condition_1}}",
+      "{{alert_condition_2}}"
+    ]
+  },
+  "guardian_approval": {
+    "status": "{{guardian_status}}",
+    "approved_by": "{{approved_by}}",
+    "approval_timestamp": "{{approval_timestamp}}",
+    "approval_notes": "{{approval_notes}}",
+    "rejection_reason": "{{rejection_reason}}"
+  },
+  "trade_journal": {
+    "entry_notes": "{{entry_notes}}",
+    "management_notes": "{{management_notes}}",
+    "lessons_learned": "{{lessons_learned}}"
+  }
+}

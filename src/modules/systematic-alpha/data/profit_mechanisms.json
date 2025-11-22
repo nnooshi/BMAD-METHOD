@@ -1,0 +1,75 @@
+{
+  "profit_mechanisms": [
+    {
+      "id": "vrp",
+      "name": "Variance Risk Premium (VRP)",
+      "description": "Profit from the difference between realized and implied volatility. Market participants overpay for volatility protection, creating systematic profit opportunities for volatility sellers.",
+      "ideal_conditions": {
+        "market_regime": "low_realized_volatility",
+        "vol_term_structure": "contango",
+        "vix_level": "below_20",
+        "skew": "negative_skew"
+      },
+      "recommended_structures": [
+        "short_straddle",
+        "iron_condor",
+        "calendar_spreads",
+        "variance_swaps"
+      ]
+    },
+    {
+      "id": "momentum_drift",
+      "name": "Momentum Drift",
+      "description": "Capture systematic price trends driven by behavioral factors, technical momentum, and trend-following strategies. Exploit persistent directional movements in asset prices.",
+      "ideal_conditions": {
+        "trend_direction": "established_uptrend",
+        "volatility_regime": "moderate_to_high",
+        "market_structure": "strong_trending",
+        "conviction": "high_trend_strength"
+      },
+      "recommended_structures": [
+        "trend_following",
+        "momentum_baskets",
+        "risk_parity",
+        "long_call_spreads",
+        "bull_call_spreads"
+      ]
+    },
+    {
+      "id": "mean_reversion",
+      "name": "Mean Reversion",
+      "description": "Exploit temporary price dislocations by betting on return to long-term average prices. Ideal for range-bound markets where prices oscillate within statistical bands.",
+      "ideal_conditions": {
+        "market_regime": "range_bound",
+        "volatility_level": "elevated",
+        "price_deviation": "beyond_2_sigma",
+        "support_resistance": "well_defined"
+      },
+      "recommended_structures": [
+        "pairs_trading",
+        "statistical_arbitrage",
+        "options_spreads",
+        "collar_strategies",
+        "short_volatility_spikes"
+      ]
+    },
+    {
+      "id": "earnings_volatility",
+      "name": "Earnings Volatility",
+      "description": "Profit from the volatility expansion around earnings announcements and earnings-driven moves. Exploit mispricings in implied volatility relative to realized volatility post-earnings.",
+      "ideal_conditions": {
+        "event_proximity": "pre_earnings_announcement",
+        "iv_rank": "below_40th_percentile",
+        "earnings_surprise_potential": "high",
+        "vol_expansion": "expected"
+      },
+      "recommended_structures": [
+        "straddle_strangle",
+        "butterfly_spreads",
+        "call_spreads",
+        "earnings_swaps",
+        "volatility_arbitrage"
+      ]
+    }
+  ]
+}
